@@ -1,0 +1,5 @@
+{
+  "name": "Gerador de Treino IA",
+  "description": "Um aplicativo que gera planos de treino de academia personalizados usando IA, com base no seu peso, altura e objetivos de condicionamento físico. Inclui descrições detalhadas e vídeos explicativos para cada exercício.",
+  "requestFramePermissions": []
+}
