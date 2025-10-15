@@ -1,8 +1,6 @@
 import { GoogleGenAI, Type } from "@google/genai";
 import { UserData, WorkoutPlan } from "../types";
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-
 const workoutSchema = {
   type: Type.OBJECT,
   properties: {
@@ -71,6 +69,8 @@ const workoutSchema = {
 };
 
 export const generateWorkoutPlan = async (userData: UserData): Promise<WorkoutPlan> => {
+  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+  
   const prompt = `
     Crie um plano de treino detalhado de 5 dias para um usuário com as seguintes características:
     - Peso: ${userData.weight} kg
