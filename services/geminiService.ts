@@ -69,7 +69,14 @@ const workoutSchema = {
 };
 
 export const generateWorkoutPlan = async (userData: UserData): Promise<WorkoutPlan> => {
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+  const apiKey = (typeof process !== 'undefined' && process.env) ? process.env.API_KEY : undefined;
+
+  if (!apiKey) {
+    console.error("Google AI API key not found in environment variables.");
+    throw new Error("A chave de API do Google não está configurada no ambiente do servidor.");
+  }
+  
+  const ai = new GoogleGenAI({ apiKey });
   
   const prompt = `
     Crie um plano de treino detalhado de 5 dias para um usuário com as seguintes características:
@@ -101,6 +108,6 @@ export const generateWorkoutPlan = async (userData: UserData): Promise<WorkoutPl
     return parsedPlan;
   } catch (error) {
     console.error("Error generating workout plan:", error);
-    throw new Error("Failed to communicate with the AI model.");
+    throw new Error("Falha na comunicação com o modelo de IA. Por favor, tente novamente mais tarde.");
   }
 };
